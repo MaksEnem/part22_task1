@@ -7,7 +7,7 @@ int main() {
 	std::map <int, std::string> phonebook;
 	int phone_number;
 	std::string surname;
-	std::pair <int, std::string> add_Subscriber(phone_number, surname);
+	
 
 	bool is_run = 1;
 	while (is_run) {
@@ -29,11 +29,9 @@ int main() {
 			std::cout << "Enter phone number:";
 			std::cin >> phone_number;
 			std::cout << "Enter the subscriber's last name: ";
-			std::cin >> surname;			
+			std::cin >> surname;				
 
-			add_Subscriber = std::make_pair(phone_number, surname);
-
-			phonebook.insert(add_Subscriber);
+			phonebook.insert(std::pair <int, std::string> (phone_number, surname));
 
 		}
 		else if (request == 2) {
