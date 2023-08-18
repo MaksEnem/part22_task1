@@ -4,8 +4,9 @@
 
 int main() {
 
-	std::map <int, std::string> phonebook;
-	int phone_number;
+	std::map <std::string, std::string> phonebook;
+	std::multimap <std::string, std::string> re_phonebook;
+	std::string phone_number;
 	std::string surname;
 	
 
@@ -31,7 +32,8 @@ int main() {
 			std::cout << "Enter the subscriber's last name: ";
 			std::cin >> surname;				
 
-			phonebook.insert(std::pair <int, std::string> (phone_number, surname));
+			phonebook.emplace (phone_number, surname);
+			re_phonebook.emplace(surname, phone_number);
 
 		}
 		else if (request == 2) {
@@ -39,7 +41,7 @@ int main() {
 			std::cout << "Enter phone number:";
 			std::cin >> phone_number;
 
-			std::map  <int, std::string>::iterator it = phonebook.find(phone_number);
+			std::map  <std::string, std::string>::iterator it = phonebook.find(phone_number);
 			std::cout << it->second << std::endl;
 
 		}
@@ -48,13 +50,13 @@ int main() {
 			std::cout << "Enter the subscriber's last name: ";
 			std::cin >> surname;
 
-			for (std::map <int, std::string>::iterator it = phonebook.begin(); it != phonebook.end(); ++it) {
+			std::string key(surname);
+			auto re_it = re_phonebook.equal_range(key);
 
-				if (it->second == surname) {
+			for (auto i = re_it.first; i != re_it.second; ++i) {
 
-					std::cout << it -> first << " ";
+				std::cout << i->second << " ";
 
-				}
 			}
 		}
 
